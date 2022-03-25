@@ -1,4 +1,5 @@
 
+import 'dotenv/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -16,8 +17,7 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use("/user", userRouter);
 
-const collectionName = 'memories_app';
-const CONNECTION_URL = `mongodb+srv://user1:2R3eUszGEB9Ca54r@cluster0.ldmqg.mongodb.net/${collectionName}?retryWrites=true&w=majority`;
+const CONNECTION_URL = `${process.env.MONGO_CONNECTION_URL}/${process.env.MONGO_CONNECTION_NAME}?retryWrites=true&w=majority`;
 const PORT = process.env.PORT|| 5001;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
