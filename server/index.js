@@ -16,8 +16,9 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use("/user", userRouter);
 
-const CONNECTION_URL = 'mongodb+srv://js_mastery:M6WfDnJEoj9HkV2d@practice.jto9p.mongodb.net/memories_app?retryWrites=true&w=majority';
-const PORT = process.env.PORT|| 5000;
+const collectionName = 'memories_app';
+const CONNECTION_URL = `mongodb+srv://user1:2R3eUszGEB9Ca54r@cluster0.ldmqg.mongodb.net/${collectionName}?retryWrites=true&w=majority`;
+const PORT = process.env.PORT|| 5001;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
