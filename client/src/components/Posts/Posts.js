@@ -1,17 +1,12 @@
 import React from "react";
-import { Grid, CircularProgress } from "@material-ui/core";
+import { Grid, CircularProgress, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 import Post from "./Post/Post";
 import useStyles from "./styles";
 
-const Posts = ({ setCurrentId }) => {
-  const { posts, isLoading } = useSelector((state) => state.posts);
-  const classes = useStyles();
-
-  if (!posts.length && !isLoading) return "No posts";
-
-  return isLoading ? (
+const GlassmorphismContainer = ({ children }) => {
+  return (
     <div
       style={{
         display: "flex",
@@ -25,8 +20,26 @@ const Posts = ({ setCurrentId }) => {
         borderRadius: "10px",
       }}
     >
-      <CircularProgress />
+      {children}
     </div>
+  );
+};
+
+const Posts = ({ setCurrentId }) => {
+  const { posts, isLoading } = useSelector((state) => state.posts);
+  const classes = useStyles();
+
+  if (!posts.length && !isLoading)
+    return (
+      <GlassmorphismContainer>
+        <Typography variant="h2">No posts yet.</Typography>
+      </GlassmorphismContainer>
+    );
+
+  return isLoading ? (
+    <GlassmorphismContainer>
+      <CircularProgress />
+    </GlassmorphismContainer>
   ) : (
     <Grid
       className={classes.container}
